@@ -1,39 +1,28 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-var circle = new Circle(Random.Shared.Next(10)+1);
-var triangle = new RightAngledTriangle(Random.Shared.Next(10)+1, Random.Shared.Next(10)+1);
+using SOLID.Assignment.Helpers;
+using SOLID.Assignment.Interfaces;
+using SOLID.Assignment.Shapes;
 
-var circleArea = Math.PI * Math.Pow(circle.Radius, 2);
-var triangleArea = triangle.Width * triangle.Height / 2.0;
+var circle = new Circle(Random.Shared.Next(10) + 1);
+var triangle = new RightAngledTriangle(Random.Shared.Next(10) + 1, Random.Shared.Next(10) + 1);
+var square = new Square(Random.Shared.Next(10) + 1);
 
-Console.WriteLine($"The area of the circle is {circleArea}");
-Console.WriteLine($"The area of the triangle is {triangleArea}");
+var shapes = new List<IShape> { circle, triangle, square };
+var shapeComparator = new ShapeComparator();
 
-if (circleArea > triangleArea)
+IShape largestShape = shapeComparator.FindLargestShape(shapes);
+
+foreach (var shape in shapes)
 {
-    Console.WriteLine("The circle is the largest");
+    Console.WriteLine($"The area of the {shape.GetType().Name} is {shape.GetArea()}");
 }
-else if (circleArea < triangleArea)
+
+if (shapeComparator.AreAllShapesEqual(shapes))
 {
-    Console.WriteLine("The triangle is the largest");
+    Console.WriteLine($"All shapes have the same area of {largestShape.GetArea()}!");
 }
 else
 {
-    Console.WriteLine("The circle and triangle are the same size");
-}
-
-
-public interface IShape
-{
-	 double GetArea();
-}
-
-public record Circle(int Radius) : IShape
-{
-	
-}
-
-public record RightAngledTriangle(int Width, int Height) : IShape
-{
-	
+    Console.WriteLine($"The {largestShape.GetType().Name} is the largest with an area of {largestShape.GetArea()}");
 }
