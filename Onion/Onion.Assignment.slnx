@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Onion.Application/Onion.Application.csproj" Id="e17ee333-6dc8-4dc3-8caf-57de290152d8" />
+  <Project Path="Onion.Assignment.csproj" />
+</Solution>
